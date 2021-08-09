@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:sample_api}/src/SampleApi/HubContext-ba1c2bef-31bb-4249-a5aa-d48f24eb4ffa.db",
+            "name": "HubContext"
+        }
+    ]
+}

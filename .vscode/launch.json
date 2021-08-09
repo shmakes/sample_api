@@ -9,13 +9,13 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/SampleApi/bin/Debug/netcoreapp3.1/SampleApi.dll",
+            "program": "${workspaceFolder}/src/SampleApi/bin/Debug/net5.0/SampleApi.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/SampleApi",
             "stopAtEntry": false,
             "launchBrowser": {
-                "enabled": true,
-                "args": "${auto-detect-url}/swagger"
+                "enabled": false,
+                "args": "${auto-detect-url}"
             },
             "serverReadyAction": {
                 "action": "openExternally",
@@ -33,6 +33,12 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
+        },
+        {
+            "type": "pwa-chrome",
+            "name": "https://localhost:5001/swagger",
+            "request": "launch",
+            "url": "https://localhost:5001/swagger"
         }
     ]
 }

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace SampleApi
@@ -37,6 +38,9 @@ namespace SampleApi
                     document.Info.Description = "Sample REST API";
                 };
             });
+
+            services.AddDbContext<HubContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("HubContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +60,10 @@ namespace SampleApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name : "areas",
+                    pattern : "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
             });
 
             app.UseOpenApi();
