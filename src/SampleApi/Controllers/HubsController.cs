@@ -14,24 +14,26 @@ namespace SampleApi.Controllers
     public class HubsController : ControllerBase
     {
         private readonly HubContext _context;
+        private readonly FlightContext _flightContext;
 
-        public HubsController(HubContext context)
+        public HubsController(HubContext context, FlightContext flightContext)
         {
             _context = context;
+            _flightContext = flightContext;
         }
 
         // GET: api/Hubs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hub>>> GetHub()
         {
-            return await _context.Hub.ToListAsync();
+            return await _context.Hub.Include(hub => hub.Flights).ToListAsync();
         }
 
         // GET: api/Hubs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hub>> GetHub(Guid id)
+        public async Task<ActionResult<Hub>> GetHub(int id)
         {
-            var hub = await _context.Hub.FindAsync(id);
+            var hub = await _context.Hub.Include(hub => hub.Flights).SingleOrDefaultAsync(hub => hub.Id == id);
 
             if (hub == null)
             {
@@ -44,7 +46,7 @@ namespace SampleApi.Controllers
         // PUT: api/Hubs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHub(Guid id, Hub hub)
+        public async Task<IActionResult> PutHub(int id, Hub hub)
         {
             if (id != hub.Id)
             {
@@ -85,13 +87,18 @@ namespace SampleApi.Controllers
 
         // DELETE: api/Hubs/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteHub(Guid id)
+        public async Task<IActionResult> DeleteHub(int id)
         {
-            var hub = await _context.Hub.FindAsync(id);
+            var hub = await _context.Hub.Include(hub => hub.Flights).SingleOrDefaultAsync(hub => hub.Id == id);
             if (hub == null)
             {
                 return NotFound();
             }
+
+/*             foreach(var flight in hub.Flights) {
+                _flightContext.Flight.Remove(flight);
+            }
+            await _flightContext.SaveChangesAsync() */;
 
             _context.Hub.Remove(hub);
             await _context.SaveChangesAsync();
@@ -99,7 +106,7 @@ namespace SampleApi.Controllers
             return NoContent();
         }
 
-        private bool HubExists(Guid id)
+        private bool HubExists(int id)
         {
             return _context.Hub.Any(e => e.Id == id);
         }

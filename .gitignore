@@ -351,3 +351,5 @@ MigrationBackup/
 
 Client.CSharp/
 Client.Typescript/
+
+*.db

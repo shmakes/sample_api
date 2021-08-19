@@ -29,7 +29,7 @@ namespace SampleApi.Controllers
 
         // GET: api/Flights/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Flight>> GetFlight(Guid id)
+        public async Task<ActionResult<Flight>> GetFlight(int id)
         {
             var flight = await _context.Flight.FindAsync(id);
 
@@ -44,7 +44,7 @@ namespace SampleApi.Controllers
         // PUT: api/Flights/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFlight(Guid id, Flight flight)
+        public async Task<IActionResult> PutFlight(int id, Flight flight)
         {
             if (id != flight.Id)
             {
@@ -85,7 +85,7 @@ namespace SampleApi.Controllers
 
         // DELETE: api/Flights/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFlight(Guid id)
+        public async Task<IActionResult> DeleteFlight(int id)
         {
             var flight = await _context.Flight.FindAsync(id);
             if (flight == null)
@@ -99,7 +99,7 @@ namespace SampleApi.Controllers
             return NoContent();
         }
 
-        private bool FlightExists(Guid id)
+        private bool FlightExists(int id)
         {
             return _context.Flight.Any(e => e.Id == id);
         }

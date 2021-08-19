@@ -40,10 +40,10 @@ namespace SampleApi
             });
 
             services.AddDbContext<HubContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("HubContext")));
+                    options.UseSqlite(Configuration.GetConnectionString("HFDBContext")));
 
             services.AddDbContext<FlightContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("FlightContext")));
+                    options.UseSqlite(Configuration.GetConnectionString("HFDBContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

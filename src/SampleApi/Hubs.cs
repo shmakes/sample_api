@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
@@ -7,12 +8,17 @@ namespace SampleApi
     public class Hub
     {
         [DataMember(IsRequired = true)]
-        public string Name { get; set; }
+        public int Id { get; set; }
 
         [DataMember(IsRequired = true)]
-        public Guid Id { get; set; }
+        public string Name { get; set; }
 
         [DataMember(IsRequired = true), DataType(DataType.EmailAddress)]
         public string MainContactEmail { get; set; }
+
+        [DataMember(IsRequired = false), DataType(DataType.EmailAddress)]
+        public string AlternateEmail { get; set; }
+
+        public List<Flight> Flights { get; set; }
     }
 }
