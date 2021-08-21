@@ -26,7 +26,6 @@ namespace SampleApi.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<Hub>>> GetHub()
         {
-            Console.WriteLine($"GetHubs: {DateTime.Now}");
             return await _context.Hub.Include(hub => hub.Flights).ToListAsync();
         }
 
