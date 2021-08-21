@@ -194,7 +194,7 @@
         "enumNameGeneratorType": null,
         "serviceHost": null,
         "serviceSchemes": null,
-        "output": "$(TypescriptOutputPath)/../../../sample_client_ng/angular-tour-of-heroes/src/app/api.generated.clients.ts"
+        "output": "$(TypescriptOutputPath)/../../../sample_client_ng/angular-tour-of-hubs/src/app/api.generated.clients.ts"
       }
     }
   }
