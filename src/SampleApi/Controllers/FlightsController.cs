@@ -21,8 +21,8 @@ namespace SampleApi.Controllers
         }
 
         // GET: api/Flights
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Flight>>> GetFlight()
+        [HttpGet("all")]
+        public async Task<ActionResult<IEnumerable<Flight>>> GetFlights()
         {
             return await _context.Flight.ToListAsync();
         }

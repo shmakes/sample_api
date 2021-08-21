@@ -27,6 +27,17 @@ namespace SampleApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add CORS policy
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ngclient",
+                builder =>
+                {
+                    // Not a permanent solution, but just trying to isolate the problem
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
+
             services.AddControllers();
 
             services.AddSwaggerDocument(settings =>
@@ -54,9 +65,11 @@ namespace SampleApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("ngclient");
 
             app.UseAuthorization();
 

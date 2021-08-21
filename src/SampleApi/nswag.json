@@ -144,7 +144,7 @@
         "className": "{controller}Client",
         "moduleName": "",
         "namespace": "",
-        "typeScriptVersion": 2.7,
+        "typeScriptVersion": 4.3,
         "template": "Angular",
         "promiseType": "Promise",
         "httpClass": "HttpClient",
@@ -194,7 +194,7 @@
         "enumNameGeneratorType": null,
         "serviceHost": null,
         "serviceSchemes": null,
-        "output": "$(TypescriptOutputPath)/api.generated.clients.ts"
+        "output": "$(TypescriptOutputPath)/../../../sample_client_ng/angular-tour-of-heroes/src/app/api.generated.clients.ts"
       }
     }
   }
