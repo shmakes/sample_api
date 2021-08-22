@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SampleApi;
 
 namespace SampleApi.Controllers
 {
@@ -30,7 +28,10 @@ namespace SampleApi.Controllers
         }
 
         // GET: api/Hubs/5
+        [ApiVersion("1.0")]
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Hub), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Hub>> GetHub(int id)
         {
             var hub = await _context.Hub.Include(hub => hub.Flights).SingleOrDefaultAsync(hub => hub.Id == id);
@@ -46,6 +47,8 @@ namespace SampleApi.Controllers
         // PUT: api/Hubs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutHub(int id, Hub hub)
         {
             if (id != hub.Id)
@@ -77,6 +80,9 @@ namespace SampleApi.Controllers
         // POST: api/Hubs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(typeof(Hub), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Hub>> PostHub(Hub hub)
         {
             _context.Hub.Add(hub);
@@ -87,6 +93,7 @@ namespace SampleApi.Controllers
 
         // DELETE: api/Hubs/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(object), StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteHub(int id)
         {
             var hub = await _context.Hub.Include(hub => hub.Flights).SingleOrDefaultAsync(hub => hub.Id == id);

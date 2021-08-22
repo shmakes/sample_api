@@ -13,6 +13,7 @@ namespace SampleApi
         public int HubId { get; set; }
 
         [DataMember(IsRequired = true)]
+        [StringLength(15)]
         public string Name { get; set; }
 
         [DataMember(IsRequired = true)]
