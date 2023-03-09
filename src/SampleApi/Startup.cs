@@ -43,10 +43,10 @@ namespace SampleApi
                 };
             });
 
-            services.AddDbContext<HubContext>(options =>
+            services.AddDbContext<Data.HubContext>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("HFDBContext")));
 
-            services.AddDbContext<FlightContext>(options =>
+            services.AddDbContext<Data.FlightContext>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("HFDBContext")));
         }
 

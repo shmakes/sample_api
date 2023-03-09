@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
-namespace SampleApi
+namespace SampleApi.Models
 {
     public class Hub
     {
@@ -13,7 +13,7 @@ namespace SampleApi
         public string Name { get; set; }
 
         [DataMember(IsRequired = true), DataType(DataType.EmailAddress)]
-        [Required(ErrorMessage ="Main Contact Email is required")]
+        [Required(ErrorMessage = "Main Contact Email is required")]
         public string MainContactEmail { get; set; }
 
         [DataMember(IsRequired = false), DataType(DataType.EmailAddress)]

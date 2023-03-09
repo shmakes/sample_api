@@ -40,7 +40,7 @@ namespace SampleApi.Specs.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Add a new hub", "A short summary of the feature", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Add a new hub", "Add a new hub with no initial flights defined", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,17 +80,25 @@ namespace SampleApi.Specs.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Client adds a new hub")]
+        [Xunit.SkippableTheoryAttribute(DisplayName="Client adds a new hub")]
         [Xunit.TraitAttribute("FeatureTitle", "Add a new hub")]
         [Xunit.TraitAttribute("Description", "Client adds a new hub")]
-        [Xunit.TraitAttribute("Category", "tag1")]
-        public void ClientAddsANewHub()
+        [Xunit.InlineDataAttribute("Test Hub 1", "hub1@example.com", "althub1@example.com", "201", new string[0])]
+        [Xunit.InlineDataAttribute("Test Hub 2", "hub2@example.com", "althub2@example.com", "201", new string[0])]
+        [Xunit.InlineDataAttribute("Test Hub 3", "hub3@example.com", "althub3@example.com", "201", new string[0])]
+        [Xunit.InlineDataAttribute("Test Hub 4", "", "althub4@example.com", "400", new string[0])]
+        [Xunit.InlineDataAttribute("", "hub5@example.com", "althub5@example.com", "500", new string[0])]
+        [Xunit.InlineDataAttribute("Test Hub 6", "hub6@example.com", "", "201", new string[0])]
+        public void ClientAddsANewHub(string name, string mainContactEmail, string alternateEmail, string statusCode, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "tag1"};
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Name", name);
+            argumentsOfScenario.Add("MainContactEmail", mainContactEmail);
+            argumentsOfScenario.Add("AlternateEmail", alternateEmail);
+            argumentsOfScenario.Add("StatusCode", statusCode);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Client adds a new hub", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 6
+#line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -100,14 +108,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 6
+ testRunner.Given(string.Format("the Client adds new hub ({0},{1},{2})", name, mainContactEmail, alternateEmail), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 7
- testRunner.Given("the Client adds new hub (<Name>,<MainContactEmail>,<AlternateEmail>)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 8
- testRunner.And("Hub model is correct", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 9
- testRunner.Then("the API should return <StatusCode>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the API should return {0}", statusCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SampleApi;
+using SampleApi.Models;
 
+namespace SampleApi.Data
+{
     public class HubContext : DbContext
     {
-        public HubContext (DbContextOptions<HubContext> options)
+        public HubContext(DbContextOptions<HubContext> options)
             : base(options)
         {
         }
 
-        public DbSet<SampleApi.Hub> Hub { get; set; }
+        public DbSet<Hub> Hub { get; set; }
     }
+}

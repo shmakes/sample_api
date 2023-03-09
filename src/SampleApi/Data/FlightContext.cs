@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SampleApi;
+using SampleApi.Models;
 
+namespace SampleApi.Data
+{
     public class FlightContext : DbContext
     {
-        public FlightContext (DbContextOptions<FlightContext> options)
+        public FlightContext(DbContextOptions<FlightContext> options)
             : base(options)
         {
         }
 
-        public DbSet<SampleApi.Flight> Flight { get; set; }
+        public DbSet<Flight> Flight { get; set; }
     }
+}

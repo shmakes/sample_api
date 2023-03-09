@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SampleApi.Data;
+using SampleApi.Models;
+using SampleApi.Services;
 
 namespace SampleApi.Controllers
 {
@@ -13,18 +16,20 @@ namespace SampleApi.Controllers
     {
         private readonly HubContext _context;
         private readonly FlightContext _flightContext;
+        private readonly HubsService _hubService;
 
         public HubsController(HubContext context, FlightContext flightContext)
         {
             _context = context;
             _flightContext = flightContext;
+            _hubService = new Services.HubsService(_context, _flightContext);
         }
 
         // GET: api/Hubs
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<Hub>>> GetHub()
         {
-            return await _context.Hub.Include(hub => hub.Flights).ToListAsync();
+            return await _hubService.GetHubs();
         }
 
         // GET: api/Hubs/5
