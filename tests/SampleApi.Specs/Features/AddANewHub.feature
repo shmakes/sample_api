@@ -14,3 +14,20 @@ Examples:
 	| Test Hub 4 |                  | althub4@example.com | 400        |
 	|            | hub5@example.com | althub5@example.com | 500        |
 	| Test Hub 6 | hub6@example.com |                     | 201        |
+
+
+Scenario Outline: Client adds a new hub with no flights
+	Given the Client adds new hub with an empty flight list
+	Then the API should create a new hub with no flights
+
+Scenario Outline: Client adds a new hub with one flight
+	Given the Client adds new hub with a flight for tomorrow
+	Then the API should create a new hub with one flight
+	And the flight name should match the name provided
+	And the flight date should match the date provided
+
+Scenario Outline: Client adds a new hub with two flights
+	Given the Client adds new hub with a flight for tomorrow and one for next month
+	Then the API should create a new hub with two flights
+	And tomorrow's flight should match the details provided
+	And next month's flight should match the details provided
